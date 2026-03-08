@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultra-Premium SaaS Landing Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#f0f4ff;color:#1a1a1a;scroll-behavior:smooth;overflow-x:hidden;}
+
+/* NAVBAR */
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 60px;background:linear-gradient(90deg,#6366f1,#4f46e5);position:sticky;top:0;z-index:100;border-radius:0 0 10px 10px;}
+nav h2{color:white;}
+nav a{color:white;margin-left:25px;font-weight:600;transition:.3s;}
+nav a:hover{color:#c7d2fe;}
+
+/* HERO */
+.hero{position:relative;height:95vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,#6366f1,#818cf8);color:white;overflow:hidden;}
+.hero h1{font-size:3.5rem;margin-bottom:15px;animation:fadeInUp 1.5s ease;}
+.hero p{font-size:1.3rem;margin-bottom:20px;animation:fadeInUp 1.5s 0.3s ease;}
+.hero .btn{background:linear-gradient(90deg,#facc15,#fcd34d);padding:15px 35px;border-radius:50px;font-weight:bold;color:#1a1a1a;transition:.3s;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+.hero .btn:hover{transform:scale(1.1);box-shadow:0 12px 25px rgba(0,0,0,0.4);}
+
+/* SVG WAVE */
+.hero svg{position:absolute;bottom:0;width:100%;height:200px;}
+
+/* SECTIONS */
+section{padding:80px 10%;opacity:0;transform:translateY(50px);transition:1s ease;}
+section.active{opacity:1;transform:translateY(0);}
+
+/* FEATURES */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;margin-top:40px;}
+.feature{background:white;padding:20px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,0.1);transition:.5s;opacity:0;transform:translateY(50px);display:flex;flex-direction:column;align-items:center;text-align:center;}
+.feature.visible{opacity:1;transform:translateY(0);}
+.feature h3{margin:15px 0 10px;}
+
+/* PRICING */
+.pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;margin-top:40px;}
+.plan{background:white;padding:25px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,0.1);transition:.5s;text-align:center;opacity:0;transform:translateY(50px);}
+.plan.visible{opacity:1;transform:translateY(0);}
+.plan h3{margin-bottom:15px;}
+.plan p.price{font-size:1.8rem;font-weight:700;margin-bottom:15px;}
+.plan button{margin-top:15px;background:linear-gradient(90deg,#facc15,#fcd34d);padding:12px 25px;border-radius:50px;border:none;cursor:pointer;transition:.3s;box-shadow:0 6px 15px rgba(0,0,0,0.2);}
+.plan button:hover{transform:scale(1.05);box-shadow:0 10px 20px rgba(0,0,0,0.3);}
+
+/* TESTIMONIALS */
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;margin-top:40px;}
+.testimonial{background:#eef2ff;padding:25px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,0.1);transition:.5s;opacity:0;transform:translateY(50px);}
+.testimonial.visible{opacity:1;transform:translateY(0);}
+
+/* CONTACT */
+.contact{text-align:center;margin-top:40px;}
+
+/* FOOTER */
+footer{text-align:center;padding:25px;background:linear-gradient(90deg,#6366f1,#4f46e5);color:white;border-radius:10px 10px 0 0;}
+
+/* MODAL */
+.modal-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:200;}
+.modal{background:white;padding:30px;border-radius:20px;width:90%;max-width:500px;position:relative;}
+.modal h2{margin-bottom:15px;}
+.modal input, .modal select, .modal textarea{width:100%;padding:12px;margin-bottom:15px;border-radius:8px;border:1px solid #ccc;}
+.modal button{background:#4f46e5;color:white;padding:12px 20px;border:none;border-radius:8px;cursor:pointer;transition:.3s;}
+.modal button:hover{background:#6366f1;}
+.close-btn{position:absolute;top:10px;right:15px;font-size:24px;cursor:pointer;}
+
+/* STICKY CTA */
+#sticky-cta{position:fixed;bottom:40px;right:40px;background:linear-gradient(90deg,#facc15,#fcd34d);color:#1a1a1a;padding:15px 30px;border-radius:50px;font-weight:600;cursor:pointer;z-index:200;transition:.3s;box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+#sticky-cta:hover{transform:scale(1.1);box-shadow:0 12px 25px rgba(0,0,0,0.4);}
+
+/* ANIMATIONS */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+nav{flex-direction:column;align-items:center;}
+nav a{margin:10px 0;}
+.hero h1{font-size:2.5rem;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+<h2>Ultra SaaS</h2>
+<div>
+<a href="#features">Features</a>
+<a href="#pricing">Pricing</a>
+<a href="#testimonials">Testimonials</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+<h1>Boost Your Startup Efficiency</h1>
+<p>Next-gen SaaS tools for modern businesses</p>
+<button class="btn" id="openModal">Get Started</button>
+<svg viewBox="0 0 1440 200"><path fill="#f0f4ff" d="M0,32L80,64C160,96,320,160,480,176C640,192,800,160,960,133.3C1120,107,1280,85,1360,74.7L1440,64L1440,200L1360,200C1280,200,1120,200,960,200C800,200,640,200,480,200C320,200,160,200,80,200L0,200Z"></path></svg>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+<h2>Features</h2>
+<div class="features">
+<div class="feature" id="feature1">
+<div id="anim1" style="width:100px;height:100px;"></div>
+<h3>Analytics Dashboard</h3>
+<p>Track KPIs dynamically with live charts.</p>
+</div>
+<div class="feature" id="feature2">
+<div id="anim2" style="width:100px;height:100px;"></div>
+<h3>Automated Reports</h3>
+<p>Generate reports instantly and share with your team.</p>
+</div>
+<div class="feature" id="feature3">
+<div id="anim3" style="width:100px;height:100px;"></div>
+<h3>Team Collaboration</h3>
+<p>Collaborate seamlessly with your team anywhere.</p>
+</div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+<h2>Pricing Plans</h2>
+<div class="pricing">
+<div class="plan">
+<h3>Basic</h3>
+<p class="price">₹499/mo</p>
+<p>Up to 5 projects</p>
+<button>Get Started</button>
+</div>
+<div class="plan">
+<h3>Pro</h3>
+<p class="price">₹999/mo</p>
+<p>Unlimited projects</p>
+<button>Get Started</button>
+</div>
+<div class="plan">
+<h3>Enterprise</h3>
+<p class="price">₹1999/mo</p>
+<p>All features</p>
+<button>Get Started</button>
+</div>
+</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+<h2>What Our Customers Say</h2>
+<div class="testimonials">
+<div class="testimonial">
+<p>"This SaaS transformed our workflow. Highly recommended!"</p>
+<h4>- Priya, CEO</h4>
+</div>
+<div class="testimonial">
+<p>"Amazing features and excellent support team."</p>
+<h4>- Rohan, Founder</h4>
+</div>
+<div class="testimonial">
+<p>"Our productivity doubled after switching to this platform."</p>
+<h4>- Ananya, Product Manager</h4>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>Contact Us</h2>
+<p>Email: support@ultrasaas.com</p>
+<p>Phone: +91 9876543210</p>
+<p>Address: 456 Startup Lane, City, India</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<p>© 2026 Ultra SaaS</p>
+</footer>
+
+<!-- STICKY CTA -->
+<div id="sticky-cta">Get Started</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal">
+<div class="modal">
+<span class="close-btn" id="closeModal">&times;</span>
+<h2>Sign Up</h2>
+<input type="text" placeholder="Full Name" required>
+<input type="email" placeholder="Email" required>
+<select required>
+<option value="">Select Plan</option>
+<option value="basic">Basic</option>
+<option value="pro">Pro</option>
+<option value="enterprise">Enterprise</option>
+</select>
+<button>Submit</button>
+</div>
+</div>
+
+<script>
+// Lottie animations
+lottie.loadAnimation({container: document.getElementById('anim1'),renderer:'svg',loop:true,autoplay:true,path:'https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json'});
+lottie.loadAnimation({container: document.getElementById('anim2'),renderer:'svg',loop:true,autoplay:true,path:'https://assets2.lottiefiles.com/packages/lf20_2LdL8A.json'});
+lottie.loadAnimation({container: document.getElementById('anim3'),renderer:'svg',loop:true,autoplay:true,path:'https://assets2.lottiefiles.com/packages/lf20_u4yrau.json'});
+
+// Scroll animations
+const sections = document.querySelectorAll('section');
+const features = document.querySelectorAll('.feature');
+const plans = document.querySelectorAll('.plan');
+const testimonials = document.querySelectorAll('.testimonial');
+
+window.addEventListener('scroll', () => {
+sections.forEach(sec=>{
+if(window.scrollY + window.innerHeight > sec.offsetTop + 100){
+sec.classList.add('active');
+}
+});
+features.forEach(f=>{if(window.scrollY + window.innerHeight > f.offsetTop + 50){f.classList.add('visible');}});
+plans.forEach(p=>{if(window.scrollY + window.innerHeight > p.offsetTop + 50){p.classList.add('visible');}});
+testimonials.forEach(t=>{if(window.scrollY + window.innerHeight > t.offsetTop + 50){t.classList.add('visible');}});
+});
+
+// Modal
+const modal = document.getElementById('modal');
+document.getElementById('openModal').onclick = ()=>{ modal.style.display='flex'; }
+document.getElementById('sticky-cta').onclick = ()=>{ modal.style.display='flex'; }
+document.getElementById('closeModal').onclick = ()=>{ modal.style.display='none'; }
+window.onclick = (e)=>{ if(e.target===modal) modal.style.display='none'; }
+</script>
+
+</body>
+</html>

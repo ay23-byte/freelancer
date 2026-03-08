@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gourmet Restaurant</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#fff8f0;color:#1a1a1a;line-height:1.6;scroll-behavior:smooth;overflow-x:hidden;}
+
+/* NAVBAR */
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 80px;background:#ff6b6b;position:sticky;top:0;z-index:100;border-radius:0 0 10px 10px;}
+nav h2{color:white;}
+nav a{color:white;margin-left:25px;font-weight:600;transition:.3s;}
+nav a:hover{color:#ffe66d;}
+
+/* HERO PARALLAX LAYERS */
+.hero{height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat fixed;z-index:-3;transform:translateZ(0);}
+.hero::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:-2;}
+.hero h1{font-size:3.5rem;margin-bottom:15px;color:white;animation:fadeIn 1.5s ease;}
+.hero p{font-size:1.3rem;margin-bottom:20px;color:white;animation:fadeIn 1.5s 0.3s ease;}
+.btn{background:#ffe66d;padding:12px 30px;border-radius:8px;font-weight:bold;color:#1a1a1a;transition:.3s;}
+.btn:hover{transform:scale(1.05);}
+
+/* SECTIONS */
+section{padding:80px 10%;opacity:0;transform:translateY(50px);transition:1s ease;}
+section.active{opacity:1;transform:translateY(0);}
+
+/* MENU FILTERS */
+.menu-filters{text-align:center;margin-bottom:40px;}
+.menu-filters button{padding:10px 20px;margin:0 10px;border:none;border-radius:8px;background:#ff6b6b;color:white;font-weight:600;cursor:pointer;transition:.3s;}
+.menu-filters button.active, .menu-filters button:hover{background:#ffe66d;color:#1a1a1a;}
+
+/* MENU ITEMS */
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;}
+.menu-item{background:#fff1e6;padding:20px;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.1);transition:.3s;}
+.menu-item:hover{transform:translateY(-5px);}
+
+/* SWIPER CAROUSEL */
+.swiper{width:100%;padding:40px 0;perspective:1200px;}
+.swiper-slide{background:#fff1e6;border-radius:12px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);text-align:center;transition:.5s;transform-style:preserve-3d;}
+.swiper-slide:hover{transform:rotateY(10deg) rotateX(5deg) scale(1.05);box-shadow:0 20px 40px rgba(0,0,0,0.3);}
+.swiper-slide img{width:100%;height:200px;object-fit:cover;}
+.swiper-slide h3{margin:15px 0 10px;}
+.swiper-slide p{padding:0 10px;margin-bottom:15px;}
+
+/* BOOKING FORM */
+form{max-width:600px;margin:auto;background:#fff1e6;padding:30px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+form input, form textarea, form select{width:100%;padding:12px;margin-bottom:15px;border-radius:8px;border:1px solid #ccc;}
+form button{background:#ff6b6b;color:white;padding:12px 20px;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:.3s;}
+form button:hover{background:#ffe66d;color:#1a1a1a;}
+
+/* STICKY BOOK BUTTON */
+#sticky-book{position:fixed;bottom:40px;right:40px;background:#ff6b6b;color:white;padding:15px 25px;border-radius:50px;font-weight:600;cursor:pointer;z-index:200;transition:.3s;box-shadow:0 10px 20px rgba(0,0,0,0.3);}
+#sticky-book:hover{background:#ffe66d;color:#1a1a1a;transform:scale(1.1);}
+
+/* CONTACT */
+.contact{text-align:center;}
+.contact p{margin-bottom:10px;font-size:1.1rem;}
+
+/* FOOTER */
+footer{text-align:center;padding:25px;background:#ff6b6b;color:white;border-radius:10px 10px 0 0;}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+nav{flex-direction:column;align-items:center;}
+nav a{margin:10px 0;}
+.hero h1{font-size:2.5rem;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+<h2>Gourmet Restaurant</h2>
+<div>
+<a href="#menu">Menu</a>
+<a href="#carousel">Gallery</a>
+<a href="#booking">Booking</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+<h1>Welcome to Gourmet</h1>
+<p>Delicious food crafted with love</p>
+<a class="btn" href="#menu">View Menu</a>
+</div>
+
+<!-- MENU SECTION -->
+<section id="menu">
+<h2>Our Menu</h2>
+<div class="menu-filters">
+<button class="active" data-filter="all">All</button>
+<button data-filter="starters">Starters</button>
+<button data-filter="main">Main Course</button>
+<button data-filter="desserts">Desserts</button>
+</div>
+
+<div class="menu">
+<div class="menu-item" data-category="starters">
+<h3>Bruschetta</h3>
+<p>Grilled bread with fresh tomatoes and basil.</p>
+<p>₹200</p>
+</div>
+<div class="menu-item" data-category="starters">
+<h3>Soup of the Day</h3>
+<p>Delicious fresh soup with seasonal vegetables.</p>
+<p>₹180</p>
+</div>
+<div class="menu-item" data-category="main">
+<h3>Margherita Pizza</h3>
+<p>Classic pizza with fresh basil and mozzarella.</p>
+<p>₹350</p>
+</div>
+<div class="menu-item" data-category="main">
+<h3>Grilled Salmon</h3>
+<p>Fresh salmon grilled to perfection with herbs.</p>
+<p>₹700</p>
+</div>
+<div class="menu-item" data-category="desserts">
+<h3>Chocolate Lava Cake</h3>
+<p>Warm chocolate cake with gooey center.</p>
+<p>₹250</p>
+</div>
+<div class="menu-item" data-category="desserts">
+<h3>Fruit Tart</h3>
+<p>Fresh seasonal fruit on buttery tart base.</p>
+<p>₹220</p>
+</div>
+</div>
+</section>
+
+<!-- IMAGE CAROUSEL -->
+<section id="carousel">
+<h2>Dish Gallery</h2>
+<div class="swiper">
+<div class="swiper-wrapper">
+<div class="swiper-slide"><img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=600&q=80" alt=""><h3>Margherita Pizza</h3></div>
+<div class="swiper-slide"><img src="https://images.unsplash.com/photo-1555992336-03a23c45b1c2?auto=format&fit=crop&w=600&q=80" alt=""><h3>Grilled Salmon</h3></div>
+<div class="swiper-slide"><img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=600&q=80" alt=""><h3>Chocolate Lava Cake</h3></div>
+</div>
+<div class="swiper-button-next"></div>
+<div class="swiper-button-prev"></div>
+</div>
+</section>
+
+<!-- BOOKING FORM -->
+<section id="booking">
+<h2>Book a Table</h2>
+<form>
+<input type="text" placeholder="Full Name" required>
+<input type="email" placeholder="Email" required>
+<input type="tel" placeholder="Phone Number" required>
+<input type="date" placeholder="Select Date" required>
+<select required>
+<option value="">Number of Guests</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3-4">3-4</option>
+<option value="5-6">5-6</option>
+<option value="7+">7+</option>
+</select>
+<textarea placeholder="Additional Notes"></textarea>
+<button type="submit">Book Now</button>
+</form>
+</section>
+
+<!-- STICKY BOOK BUTTON -->
+<div id="sticky-book" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'});">Reserve Table</div>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>Contact Us</h2>
+<p>Email: info@gourmet.com</p>
+<p>Phone: +91 9876543210</p>
+<p>Address: 123 Food Street, City, India</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<p>© 2026 Gourmet Restaurant</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script>
+// Scroll animation
+const sections = document.querySelectorAll('section');
+window.addEventListener('scroll', () => {
+sections.forEach(sec=>{
+if(window.scrollY + window.innerHeight > sec.offsetTop + 100){
+sec.classList.add('active');
+}
+});
+});
+
+// Menu filter
+const filterBtns = document.querySelectorAll('.menu-filters button');
+const menuItems = document.querySelectorAll('.menu-item');
+filterBtns.forEach(btn=>{
+btn.addEventListener('click', ()=>{
+filterBtns.forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+const filter = btn.getAttribute('data-filter');
+menuItems.forEach(item=>{
+item.style.display=(filter==='all'||item.getAttribute('data-category')===filter)?'block':'none';
+});
+});
+});
+
+// Swiper carousel
+const swiper = new Swiper('.swiper', {
+loop:true,
+navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},
+autoplay:{delay:2500,disableOnInteraction:false},
+slidesPerView:1,
+spaceBetween:20,
+breakpoints:{768:{slidesPerView:2},1024:{slidesPerView:3}}
+});
+</script>
+
+</body>
+</html>
